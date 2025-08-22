@@ -7,6 +7,7 @@ function App() {
   const [poka, setPoka] = useState({});
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState(1);
+  const [fav, setFav] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,12 @@ function App() {
     setNumber((prev) => prev + 1);
   };
 
+  const addFav = () => {
+    setFav((prev) => [...prev, poka]);
+  };
+
+  console.log(fav);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -49,7 +56,7 @@ function App() {
         />
       </div>
 
-      <div className="mt-5">
+      <div className="my-5">
         <button
           type="button"
           onClick={handlePrev}
@@ -64,6 +71,26 @@ function App() {
         >
           ถัดไป
         </button>
+      </div>
+
+      <button
+        type="button"
+        onClick={addFav}
+        className="bg-blue-500 text-white px-4 py-2 rounded "
+      >
+        ชอบ
+      </button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+        {fav.map((item, idx) => (
+          <div key={idx}>
+            <h2>{item.name}</h2>
+            <img
+              src={item.sprites?.other.dream_world.front_default}
+              alt={item.name}
+              className="w-48 h-48"
+            />
+          </div>
+        ))}
       </div>
     </>
   );
